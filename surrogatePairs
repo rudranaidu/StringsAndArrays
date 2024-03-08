@@ -1,0 +1,42 @@
+Surrogage pairs: UTF-16 allows to encode upto 65,536 characters . If chracter falls beyond to this range then 
+UTF-16 uses  scheme called  pairs of code units known as surrogates.
+Java doesn't support UTF-32 so it comes up with approch called pair of 16 bit encoding to represent characters beyond 65536
+
+Unicode has come up with a solution with pair of 2 - 16 bits to represent these characters. This solution implies the following:
+
+16-bit high surrogates: 1,024 values (U+D800 to U+DBFF)
+16-bit low surrogates: 1,024 values (U+DC00 to U+DFFF)
+
+Example : Smiley symbols, Heart symbols etc
+
+We can identify surrogate Pairs with method str.codePointCount(0,str.length()), which returns 1, even if the str length is 2
+
+ie smiley symbols are represented using two 16 bit unicode characters.
+
+if str.codePointCount(i, i+2) == 1 , then we can say that we found surrogate pairs.
+
+public static List<Integer> extract(String str) {
+
+  List<Integer> result = new ArrayList<>();
+
+  for (int i = 0; i < str.length(); i++) {
+
+    int cp = str.codePointAt(i);
+
+    if (i < str.length()-1
+
+        && str.codePointCount(i, i+2) == 1) {
+
+      result.add(cp);
+
+      result.add(str.codePointAt(i+1));
+
+      i++;
+
+    }
+
+  }
+
+  return result;
+
+}
