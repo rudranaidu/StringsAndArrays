@@ -1,0 +1,22 @@
+boolean isRotation(String str1, String str2) {
+    return str1.length() == str2.length() && (str1 + str1).contains(str2);
+}
+
+String str1 = "abcd";
+String str2 = "cdab";
+
+
+To check if str2 is a rotation of str1, we perform the following steps:
+
+Check if the lengths of str1 and str2 are equal. If they are not equal, then str2 cannot be a rotation of str1.
+Concatenate str1 with itself (str1 + str1). This gives us "abcdabcd".
+Check if str2 is a substring of the concatenated string (str1 + str1). In our example, "cdab" is indeed a substring of "abcdabcd".
+If both conditions are true (lengths are equal and str2 is a substring of the concatenated string), then str2 is a rotation of str1.
+
+
+Another approach:
+
+boolean isRotation(String str1, String str2) {
+    return str1.length() == str2.length() && (str1 + str1).indexOf(str2) != -1;
+}
+
