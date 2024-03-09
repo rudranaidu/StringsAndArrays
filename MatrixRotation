@@ -1,0 +1,32 @@
+
+Rotate (x,y) point 90 degress in clokwise means coordinate becomes (y,-x)
+Rotate (x,y) point 90 degress in counter clokwise means coordinate becomes (-y,x)
+Rotate (x,y) point 180 degress in counter clokwise means coordinate becomes (-x,-y)
+Rotate (x,y) point 180 degress in clokwise means coordinate becomes (-x,-y)
+
+See the link for rotating matrix with 90 degrees 
+https://www.google.com/url?sa=i&url=https%3A%2F%2Fdev.to%2Falisabaj%2Frotating-a-matrix-90-degrees-4a49&psig=AOvVaw3BuuUM6VHlvm1lpQpHQYlT&ust=1710027470527000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNCEjvHq5YQDFQAAAAAdAAAAABAc
+
+90 degrees rotation can be achieved by creating Transpose of matrix and reversing the columns
+
+1  2  3  4
+5  6  7  8
+9 10 11 12
+13 14 15 16
+
+Transpose of above matrix 
+
+1  5  9 13
+2  6 10 14
+3  7 11 15
+4  8 12 16
+
+then reverse the columns
+ 13  9  5  1
+ 14 10  6  2
+ 15 11  7  3
+ 16 12  8  4
+
+
+
+
