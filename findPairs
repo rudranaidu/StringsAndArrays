@@ -1,0 +1,33 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Main {
+    public static List<List<Integer>> findPairs(int[] a, int k) {
+        List<List<Integer>> resultList = new ArrayList<>();
+        Arrays.sort(a);
+        int arraySize = a.length;
+        for (int i = 0, j = arraySize - 1; i < arraySize && j > i; ) {
+            if (a[i] + a[j] == k) {
+                List<Integer> list = new ArrayList<>();
+                list.add(a[i]);
+                list.add(a[j]);
+                resultList.add(list);
+                i++;
+                j--;
+            } else if (a[i] + a[j] < k) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        return resultList;
+    }
+
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int targetSum = 10;
+        List<List<Integer>> pairs = findPairs(array, targetSum);
+        System.out.println("Pairs with sum " + targetSum + ": " + pairs);
+    }
+}
