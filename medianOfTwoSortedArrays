@@ -1,0 +1,59 @@
+Brute for approach is construct merged array in by combining both arrays
+and then calculate median , if length of merged array is odd then median will be n+1/2 otherwise median will be mean of two mid elements 
+ie (mid + mid-1) /2;
+
+To improve space complexity we will follow different approach.
+To find the median , there is no need the entire merged array . We need only the merged array upto mid element. so based on this we can decrease the space complexity.
+
+import java.util.Arrays;
+public class MedianOfTwoSortedArrays {
+
+    public static void main(String[] args) {
+
+        int num1[] = new int[] { 1, 2 };
+        int num2[] = new int[] { 3, 4, 5 };
+        int total = num1.length + num2.length;
+        int mid = total / 2;
+        double median = 0;
+        int[] mergedArray = mergedArray(num1, num2, mid);
+        System.out.println(Arrays.toString(mergedArray));
+        if (total % 2 != 0) {
+            median = mergedArray[mid];
+        } else {
+            median = (mergedArray[mid] + mergedArray[mid - 1]) / 2.0; // Convert to double for accurate calculation
+        }
+        System.out.println("Median:" + median);
+    }
+
+    private static int[] mergedArray(int[] num1, int[] num2, int mid) {
+        int merged[] = new int[mid + 1];
+        int ptr1 = 0;
+        int ptr2 = 0;
+        int ptr3 = 0;
+        if (num1.length == 0) {
+            return num2;
+        } else if (num2.length == 0) {
+            return num1;
+        }
+        while (ptr1 < num1.length && ptr2 < num2.length && ptr3 <= mid) {
+            if (num1[ptr1] < num2[ptr2]) {
+                merged[ptr3++] = num1[ptr1++];
+            } else if (num2[ptr2] < num1[ptr1]) {
+                merged[ptr3++] = num2[ptr2++];
+            } else {
+                merged[ptr3++] = num1[ptr1++]; // If elements are equal, choose from any array
+                merged[ptr3++] = num2[ptr2++];
+            }
+        }
+
+        while (ptr2 < num2.length && ptr3 <= mid) {
+            merged[ptr3++] = num2[ptr2++];
+        }
+
+        while (ptr1 < num1.length && ptr3 <= mid) {
+            merged[ptr3++] = num1[ptr1++];
+        }
+
+        return merged;
+    }
+}
