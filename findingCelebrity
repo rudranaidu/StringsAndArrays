@@ -1,0 +1,51 @@
+Find the Celebrity: Suppose you are at a party with n people (labeled from 0 to n - 1) and among them, there may exist one celebrity.
+A celebrity is defined as a person who knows no one but himself, but everyone else knows him. 
+You need to find out the celebrity (if any) from a given list of people. 
+
+knows = [
+  [false, false, true, false],
+  [false, false, true, false],
+  [false, false, false, false],
+  [false, false, true, false]
+]
+
+output is 2.
+
+public class Main {
+    public static int findCelebrity(int[][] knows) {
+        int n = knows.length;
+        int candidate = 0;
+
+        // Find potential celebrity candidate
+        for (int i = 1; i < n; i++) {
+            if (knows[candidate][i]) {
+                candidate = i;
+            }
+        }
+
+        // Verify if candidate is the celebrity
+        for (int i = 0; i < n; i++) {
+            if (i != candidate && (knows[candidate][i] || !knows[i][candidate])) {
+                // Candidate knows someone or someone doesn't know the candidate
+                return -1; // No celebrity found
+            }
+        }
+
+        return candidate; // Found the celebrity
+    }
+
+    public static void main(String[] args) {
+        int[][] knows = {
+            {false, false, true, false},
+            {false, false, true, false},
+            {false, false, false, false},
+            {false, false, true, false}
+        };
+        int celebrity = findCelebrity(knows);
+        if (celebrity != -1) {
+            System.out.println("Celebrity found: " + celebrity);
+        } else {
+            System.out.println("No celebrity found.");
+        }
+    }
+}
