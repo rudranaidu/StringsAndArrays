@@ -1,0 +1,77 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+    public static int findMajorityElement(int[] a) {
+        Map<Integer, Integer> countMap = new HashMap<>();
+
+        for (int number : a) {
+            countMap.put(number, countMap.getOrDefault(number, 0) + 1);
+        }
+
+        return countMap.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(-1);
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {2, 2, 1, 1, 1, 2, 2};
+        int majorityElement = findMajorityElement(nums);
+        System.out.println("Majority Element: " + majorityElement);
+    }
+}
+
+Space complexity is O(n) & time complexity is O(n)
+
+We use Boyer-Moore Voting Algorithm for finding Majority element in O(1) space complexity and O(n) time complexity.
+Majority element is element which occurs more than n/2 times where n is size of array.
+
+public class Main {
+    public static int findMajority(int[] a) {
+        if (a == null || a.length == 0) {
+            return -1; // No majority element found
+        }
+        
+        int candidate = a[0];
+        int count = 1;
+        
+        // Find potential candidate for majority element
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] == candidate) {
+                count++;
+            } else {
+                count--;
+            }
+            if (count == 0) {
+                candidate = a[i];
+                count = 1;
+            }
+        }
+
+        // Verify if candidate is the majority element
+        int majorityCount = 0;
+        for (int number : a) {
+            if (number == candidate) {
+                majorityCount++;
+            }
+        }
+
+        int n = a.length;
+        if (count > n / 2) {
+            return candidate;
+        } else {
+            return -1; // No majority element found
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {2, 2, 1, 1, 1, 2, 2};
+        int majorityElement = findMajority(nums);
+        if (majorityElement != -1) {
+            System.out.println("Majority Element: " + majorityElement);
+        } else {
+            System.out.println("No majority element found.");
+        }
+    }
+}
