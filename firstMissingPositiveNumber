@@ -1,0 +1,23 @@
+import java.util.Arrays;
+
+public class Main {
+    public static int firstMissingPositiveNumber(int[] num) {
+        int missingNumber = 1;
+
+        for (int number : num) {
+            if (number == missingNumber) {
+                missingNumber++;
+            } else if (number > missingNumber) {
+                return missingNumber;
+            }
+        }
+
+        return missingNumber;
+    }
+
+    public static void main(String[] args) {
+        int[] num = {3, 4, -1, 1};
+        int result = firstMissingPositiveNumber(num);
+        System.out.println("First missing positive number: " + result);
+    }
+}
