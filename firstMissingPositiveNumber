@@ -95,4 +95,26 @@ public class Main {
 }
 
 
+2) Find the Duplicate Number: Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive),
+   prove that at least one duplicate number must exist. Assume that there is only one duplicate number, find the duplicate one.
+
+    public class Main {
+        public static int findDuplicateNumber(int[] a) {
+            for (int i = 0; i < a.length; i++) {
+                int index = Math.abs(a[i]);
+                if (a[index] < 0) {
+                    System.out.println("Duplicate found: " + index);
+                    return index;
+                } else {
+                    a[index] = -a[index];
+                }
+            }
+            return -1; // No duplicate found
+        }
+    
+        public static void main(String[] args) {
+            int[] nums = {1, 3, 4, 2, 2};
+            findDuplicateNumber(nums);
+        }
+    }
 
