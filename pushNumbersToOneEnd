@@ -17,5 +17,29 @@
 
 2) Segregate Even And Odd Numbers
 
+   public static ArrayList<Integer> segregate_evens_and_odds(ArrayList<Integer> numbers) {
+        int size = numbers.size();
+        int left = 0;
+        int right = size - 1;
+        while (left < right) {
+            if (numbers.get(left) % 2 == 0) {
+                left++;
+            } else {
+                if (numbers.get(right) % 2 == 0) {
+                    swap(numbers, left, right);
+                    left++;
+                    right--;
+                } else if(numbers.get(right) % 2 != 0) {
+                   right--;  
+                }
+            }
+        }
+        return numbers;
+    }
 
+    public static void swap(ArrayList<Integer> numbers, int a, int b) {
+        int temp = numbers.get(a);
+        numbers.set(a, numbers.get(b));
+        numbers.set(b, temp);
+    }
  
