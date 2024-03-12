@@ -43,3 +43,17 @@ public class Main {
         System.out.println(missingRanges);
     }
 }
+
+Sample input and output for boundary cases:
+
+Input: nums = [], lower = 0, upper = 99
+Output: ["0->99"]
+
+Input: nums = [5, 10, 15], lower = 0, upper = 99
+Output: ["0->4"]
+
+Input: nums = [5, 10, 15], lower = 0, upper = 20
+Output: ["16->20"]
+
+Input: nums = [5, 10, 15], lower = 7, upper = 12
+Output: ["7->9", "11"]
