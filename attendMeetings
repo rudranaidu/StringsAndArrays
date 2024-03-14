@@ -80,3 +80,6 @@ Greedyapproach: O(n)
         }
         return meetingsAttended;
     }
+
+In Java, when you provide a custom comparator function like (a, b) -> a.get(0) - b.get(0) for sorting, 
+the comparison logic works based on the result of the subtraction operation.
