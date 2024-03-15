@@ -1,3 +1,5 @@
+Problem 1) Can Attend the meeting
+
 Given a list of meeting intervals where each interval consists of a start and an end time, check if a person can attend all the given meetings such that only one meeting can be attended at a time.
 
 Example 1) {
@@ -83,3 +85,10 @@ Greedyapproach: O(n)
 
 In Java, when you provide a custom comparator function like (a, b) -> a.get(0) - b.get(0) for sorting, 
 the comparison logic works based on the result of the subtraction operation.
+
+
+Problem 2) Conflicting Appointments: Given an array of intervals representing 'N' appointments, 
+find out if a person can attend all the appointments.
+
+
+
