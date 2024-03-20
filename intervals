@@ -90,3 +90,53 @@ find out if a person can attend all the appointments.
 
 
 
+Problem 3) Employee Free Time Given a list of schedules representing the working hours of each employee, find the common free time among them.
+
+import java.util.*;
+
+class Interval {
+    int start;
+    int end;
+
+    public Interval(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+}
+
+public class FreeTimeFinder {
+    public static List<Interval> findCommonFreeTime(List<List<Interval>> employeeSchedules) {
+        // Sort intervals for each employee by start time
+        for (List<Interval> schedule : employeeSchedules) {
+            Collections.sort(schedule, Comparator.comparingInt(interval -> interval.start));
+        }
+
+        // Find common free time
+        List<Interval> commonFreeTime = new ArrayList<>();
+        Interval prev = null;
+        for (List<Interval> schedule : employeeSchedules) {
+            for (Interval interval : schedule) {
+                if (prev != null && prev.end < interval.start) { // Found a gap between intervals
+                    commonFreeTime.add(new Interval(prev.end, interval.start));
+                }
+                prev = (prev == null || interval.end > prev.end) ? interval : prev;
+            }
+        }
+
+        return commonFreeTime;
+    }
+
+    public static void main(String[] args) {
+        List<List<Interval>> employeeSchedules = new ArrayList<>();
+        employeeSchedules.add(Arrays.asList(new Interval(9, 12), new Interval(14, 17), new Interval(20, 22)));
+        employeeSchedules.add(Arrays.asList(new Interval(8, 11), new Interval(13, 15), new Interval(18, 21)));
+        employeeSchedules.add(Arrays.asList(new Interval(10, 13), new Interval(16, 19), new Interval(23, 24)));
+
+        List<Interval> commonFreeTime = findCommonFreeTime(employeeSchedules);
+
+        System.out.println("Common Free Time:");
+        for (Interval interval : commonFreeTime) {
+            System.out.println("[" + interval.start + ", " + interval.end + "]");
+        }
+    }
+}
