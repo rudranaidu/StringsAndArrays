@@ -203,3 +203,31 @@ public class FreeTimeFinder {
         }
     }
 }
+
+
+Problem 5:
+  Given an array of meeting time intervals consisting of start and end times, find the minimum number of conference rooms required.
+
+private int countMeetingRooms(List<List<Integer>> intervals) {
+    if (intervals == null || intervals.isEmpty()) {
+        return 0;
+    }
+    int count = 1; // At least one conference room is needed for the first meeting
+    Collections.sort(intervals, Comparator.comparingInt(a -> a.get(0)));
+    int lastEndTime = intervals.get(0).get(1);
+    
+    for (int i = 1; i < intervals.size(); i++) {
+        int nextIntervalStartTime = intervals.get(i).get(0);
+        int nextIntervalEndTime = intervals.get(i).get(1);
+        
+        if (nextIntervalStartTime < lastEndTime) {
+            count++; // Need a new conference room
+        } else {
+            lastEndTime = nextIntervalEndTime; // Update lastEndTime
+        }
+    }
+    
+    return count;
+}
+
+
