@@ -125,11 +125,30 @@ Problem 3) Conflicting Appointments: Given an array of intervals representing 'N
 find out if a person can attend all the appointments.
 
 
-
-
-
-
-
+private boolean canAttendMeeting(List<List<Integer>> intervals) {
+    if (intervals == null || intervals.isEmpty()) {
+        return false; // Return false for an empty list
+    }
+    
+    Collections.sort(intervals, Comparator.comparingInt(a -> a.get(0)));
+    
+    int currentStartTime = intervals.get(0).get(0);
+    int latestEndTime = intervals.get(0).get(1);
+    
+    for (int i = 1; i < intervals.size(); i++) {
+        int nextIntervalStartTime = intervals.get(i).get(0);
+        int nextIntervalEndTime = intervals.get(i).get(1);
+        
+        if (currentStartTime < nextIntervalEndTime) {
+            return false; // Conflict found
+        } else {
+            currentStartTime = nextIntervalStartTime;
+            latestEndTime = nextIntervalEndTime;
+        }
+    }
+    
+    return true; // No conflicts found
+}
 
 
 
