@@ -337,3 +337,20 @@ public class IntervalIntersection {
     }
 }
 
+Problem 7: Minimum Number of Arrows to Burst Balloons: Given a 2D array of points where each point represents 
+the start and end coordinates of a balloon, find the minimum number of arrows that must be shot to burst all balloons.
+
+It is similar to finding overlapping intervals.
+private static int countNumberOfArrows(int[][] balloons) {
+    int arrows = 0;
+    int lastBalloonEndPoint = balloons[0][1]; // Corrected variable name
+    for (int i = 1; i < balloons.length; i++) {
+        int nextBalloonStartPoint = balloons[i][0];
+        if (lastBalloonEndPoint < nextBalloonStartPoint) {
+            arrows++;
+        } else {
+            lastBalloonEndPoint = Math.max(lastBalloonEndPoint, balloons[i][1]); // Added missing semicolon
+        }
+    }
+    return arrows;
+}
