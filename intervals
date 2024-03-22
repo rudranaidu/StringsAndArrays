@@ -279,3 +279,61 @@ public class IntervalInsertion {
     }
 }
 
+Problem 6: Interval List Intersections: Given two lists of closed intervals, each list of intervals is pairwise disjoint and in sorted order, 
+return the intersection of these two interval lists.
+Input:
+List 1: [[0,2],[5,10],[13,23],[24,25]]
+List 2: [[1,5],[8,12],[15,24],[25,26]]
+
+Output:
+Intersection of Interval Lists: [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]
+
+Explanation:
+
+The intervals [0,2] and [1,5] intersect at [1,2].
+The intervals [5,10] and [1,5] intersect at [5,5].
+The intervals [5,10] and [8,12] intersect at [8,10].
+The intervals [13,23] and [15,24] intersect at [15,23].
+The intervals [24,25] and [15,24] intersect at [24,24].
+The intervals [24,25] and [25,26] intersect at [25,25].
+So, the intersection of these two interval lists is [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]].
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class IntervalIntersection {
+    public static List<List<Integer>> intervalIntersection(int[][] firstList, int[][] secondList) {
+        List<List<Integer>> intersections = new ArrayList<>();
+
+        int i = 0, j = 0;
+        while (i < firstList.length && j < secondList.length) {
+		
+		      // take max of start time in list1 & list2 and min of end time in list1& list2
+            int start = Math.max(firstList[i][0], secondList[j][0]);
+            int end = Math.min(firstList[i][1], secondList[j][1]);
+
+            if (start <= end) {
+                intersections.add(Arrays.asList(start, end));
+            }
+
+            if (firstList[i][1] < secondList[j][1]) {
+                i++;
+            } else {
+                j++;
+            }
+        }
+
+        return intersections;
+    }
+
+    public static void main(String[] args) {
+        int[][] firstList = {{0, 2}, {5, 10}, {13, 23}, {24, 25}};
+        int[][] secondList = {{1, 5}, {8, 12}, {15, 24}, {25, 26}};
+
+        List<List<Integer>> intersection = intervalIntersection(firstList, secondList);
+        System.out.println("Intersection of Interval Lists: " + intersection);
+    }
+}
+
