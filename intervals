@@ -150,8 +150,6 @@ private boolean canAttendMeeting(List<List<Integer>> intervals) {
     return true; // No conflicts found
 }
 
-
-
 Problem 4) Employee Free Time Given a list of schedules representing the working hours of each employee, 
 find the common free time among them.
 
@@ -279,7 +277,7 @@ public class IntervalInsertion {
     }
 }
 
-Problem 6: Interval List Intersections: Given two lists of closed intervals, each list of intervals is pairwise disjoint and in sorted order, 
+Problem 7: Interval List Intersections: Given two lists of closed intervals, each list of intervals is pairwise disjoint and in sorted order, 
 return the intersection of these two interval lists.
 Input:
 List 1: [[0,2],[5,10],[13,23],[24,25]]
@@ -337,7 +335,7 @@ public class IntervalIntersection {
     }
 }
 
-Problem 7: Minimum Number of Arrows to Burst Balloons: Given a 2D array of points where each point represents 
+Problem 8: Minimum Number of Arrows to Burst Balloons: Given a 2D array of points where each point represents 
 the start and end coordinates of a balloon, find the minimum number of arrows that must be shot to burst all balloons.
 
 It is similar to finding overlapping intervals.
