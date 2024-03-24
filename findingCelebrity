@@ -25,6 +25,10 @@ public class Main {
 
         // Verify if candidate is the celebrity
         for (int i = 0; i < n; i++) {
+
+           //knows[candidate][i] -> means candidate knows i, knows[i][candidate] means i doesn't know the candidate, then 
+           // candidate won't be a celebrity , i!= candidate means we dont do comparision against itself
+
             if (i != candidate && (knows[candidate][i] || !knows[i][candidate])) {
                 // Candidate knows someone or someone doesn't know the candidate
                 return -1; // No celebrity found
