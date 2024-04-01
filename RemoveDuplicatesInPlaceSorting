@@ -27,3 +27,34 @@ class RemoveDuplicateInPlace {
         return length;
     }
 }
+2)  Remove Duplicates from Sorted Array II (if duplicate count is more than 2 then remove those duplicates)
+
+Input:
+nums = [0, 0, 1, 1, 1, 1, 2, 3, 3, 4]
+
+Output:
+After removing duplicates, the modified array will be [0, 0, 1, 1, 2, 3, 3, 4], and the new length is 8.
+
+private static int getNonDuplicates(int[] a) {
+    if (a == null || a.length == 0) {
+        return 0;
+    }
+    int size = a.length;
+    int length = 1; // Start with the first element
+    int count = 1; // Count of occurrences of the current element
+    for (int i = 1; i < size; i++) {
+        if (a[i] != a[length - 1]) {
+            a[length++] = a[i];
+            count = 1; // Reset the count for the new element
+        } else if (count < 2) {
+            a[length++] = a[i];
+            count++; // Increment the count for the current element
+        }
+    }
+    return length;
+}
+
+3) Find All Numbers Disappeared in an Array where array element are from  1 ≤ a[i] ≤ n
+   
+   
+ 
