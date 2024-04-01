@@ -56,5 +56,26 @@ private static int getNonDuplicates(int[] a) {
 
 3) Find All Numbers Disappeared in an Array where array element are from  1 ≤ a[i] ≤ n
    
+import java.util.*;
+
+private static List<Integer> getMissingList(int[] a) {
+    if (a == null || a.length == 0) {
+        return Collections.emptyList();
+    }
+    Arrays.sort(a);
+    
+    List<Integer> missingNumbers = new ArrayList<>();
+    for (int i = 0; i < a.length - 1; i++) {
+        int diff = a[i + 1] - a[i];
+        if (diff > 1) {
+            for (int j = 1; j < diff; j++) {
+                missingNumbers.add(a[i] + j);
+            }
+        }
+    }
+    return missingNumbers;
+}
+
+4) Intersection of Two Arrays
    
  
