@@ -1,0 +1,29 @@
+1)  Remove Duplicates from Sorted Array
+    input :   [1, 1, 2, 2, 3, 4, 4, 5]
+    output :  [1, 2, 3, 4, 5]
+
+import java.util.*;
+class RemoveDuplicateInPlace {
+    public static void main(String[] args) {
+        System.out.println("Try programiz.pro");
+        int[] a = new int[]{1, 1, 2, 2, 3, 4, 4, 5};
+        int length = getNonDuplicates(a);
+        for(int i=0;i<length;i++){
+            System.out.println(a[i]);
+        } 
+    }
+ 
+    private static int getNonDuplicates(int[] a) {
+         if(a==null || a.length==0) {
+             return 0;
+         }
+        int size = a.length;
+        int length =1;
+        for(int i=1;i<size;i++) {
+            if(a[i] != a[i-1]) {
+                a[length++] = a[i];
+            }
+        }
+        return length;
+    }
+}
