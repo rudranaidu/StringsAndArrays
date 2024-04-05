@@ -27,7 +27,7 @@ class RemoveDuplicateInPlace {
         return length;
     }
 }
-2)  Remove Duplicates from Sorted Array II (if duplicate count is more than 2 then remove those duplicates)
+2)  Remove Duplicates from Sorted Array II (if duplicate count is more than 2 then remove 3rd, 4th , 5th ...duplicates)
 
 Input:
 nums = [0, 0, 1, 1, 1, 1, 2, 3, 3, 4]
