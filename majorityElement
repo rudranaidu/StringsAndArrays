@@ -58,7 +58,7 @@ public class Main {
         }
 
         int n = a.length;
-        if (count > n / 2) {
+        if (majorityCount > n / 2) {
             return candidate;
         } else {
             return -1; // No majority element found
