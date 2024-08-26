@@ -1,5 +1,6 @@
 Problem 1) Can Attend the meeting
-Given a list of meeting intervals where each interval consists of a start and an end time, check if a person can attend all the given meetings such that only one meeting can be attended at a time.
+Given a list of meeting intervals where each interval consists of a start and an end time, 
+check if a person can attend all the given meetings such that only one meeting can be attended at a time.
 
 Example 1) {
 "intervals": [
@@ -341,13 +342,13 @@ the start and end coordinates of a balloon, find the minimum number of arrows th
 It is similar to finding overlapping intervals.
 private static int countNumberOfArrows(int[][] balloons) {
     int arrows = 0;
-    int lastBalloonEndPoint = balloons[0][1]; // Corrected variable name
+    int lastBalloonEndPoint = balloons[0][1]; 
     for (int i = 1; i < balloons.length; i++) {
         int nextBalloonStartPoint = balloons[i][0];
         if (lastBalloonEndPoint < nextBalloonStartPoint) {
             arrows++;
         } else {
-            lastBalloonEndPoint = Math.max(lastBalloonEndPoint, balloons[i][1]); // Added missing semicolon
+            lastBalloonEndPoint = Math.max(lastBalloonEndPoint, balloons[i][1]); 
         }
     }
     return arrows;
