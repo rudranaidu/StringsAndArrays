@@ -9,20 +9,18 @@ public class Main {
     public static List<String> getMissingRange(int[] a, int lower, int upper) {
         List<String> rangeList = new ArrayList<>();
         
-        // Handle case when lower is within the array bounds
+        // Handle the case when lower is outside or before the start of the array
         if (a.length == 0 || lower < a[0]) {
             rangeList.add(findRange(lower, a.length == 0 ? upper : a[0] - 1));
-        }
-        
+        }        
         for (int i = 0; i < a.length - 1; i++) {
             rangeList.add(findRange(a[i], a[i + 1]));
         }
         
-        // Handle case when upper is within the array bounds
+        // Handle the case when upper is outside or after the end of the array
         if (a.length == 0 || upper > a[a.length - 1]) {
             rangeList.add(findRange(a.length == 0 ? lower : a[a.length - 1] + 1, upper));
-        }
-        
+        }        
         return rangeList;
     }
   
