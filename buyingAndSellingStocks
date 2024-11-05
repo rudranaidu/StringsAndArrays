@@ -21,3 +21,52 @@ public int maxProfit(int[] prices) {
 
     return maxProfit;
 }
+
+Stock selling variations:
+
+1)   Time to Buy and Sell Stock III**
+   - **Description**: You are allowed to complete at most two transactions.
+   - **Input**: `prices = [3,3,5,0,0,3,1,4]`
+   - **Output**: `maxProfit = 6` (Buy on day 4, sell on day 6, buy on day 7, sell on day 8)
+   - **Hint**: Use dynamic programming or two-pass traversal to keep track of the two best transactions.
+
+public int getMaxProfit(int[] prices) {
+    if (prices == null || prices.length == 0) {
+        throw new IllegalArgumentException("Please provide valid input");
+    }
+
+    int n = prices.length;
+    if (n < 2) return 0; // No transactions possible if less than 2 prices
+
+    // First pass: calculate maximum profit up to each day
+    int[] firstPassProfit = new int[n];
+    int minPrice = prices[0];
+    for (int i = 1; i < n; i++) {
+        if (minPrice > prices[i]) {
+            minPrice = prices[i];
+        }
+        firstPassProfit[i] = prices[i] - minPrice;
+    }
+
+    // Second pass: calculate maximum profit from each day to the end
+    int[] secondPassProfit = new int[n];
+    int maxPrice = prices[n - 1];
+    for (int j = n - 2; j >= 0; j--) {
+        if (maxPrice < prices[j]) {
+            maxPrice = prices[j];
+        }
+        secondPassProfit[j] = maxPrice - prices[j];
+    }
+
+    // Combine profits
+    int maxProfit = 0;
+    for (int i = 0; i < n; i++) {
+        maxProfit = Math.max(maxProfit, firstPassProfit[i] + secondPassProfit[i]);
+    }
+
+    return maxProfit;
+}
+
+2) 
+
+
