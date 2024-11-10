@@ -1,0 +1,54 @@
+1st method:
+
+int[] removeNthElementFromArray(int[] a, int k) {
+    if (a == null || a.length == 0 || k <= 0 || k > a.length) {
+        throw new IllegalArgumentException("Please provide valid input");
+    }
+
+    int elementPosition = a.length - k;
+
+    // Shift elements to the left starting from elementPosition
+    for (int i = elementPosition; i < a.length - 1; i++) {
+        a[i] = a[i + 1];
+    }
+
+    // Return a new array with the last element removed
+    return Arrays.copyOf(a, a.length - 1);
+}
+
+2nd Method:
+
+int[] removeNthFromEnd(int[] a, int n) {
+    if (a == null || a.length == 0 || n < 1 || n > a.length) {
+        throw new IllegalArgumentException("Invalid input");
+    }
+
+    // Step 1: Reverse the entire array
+    reverse(a, 0, a.length - 1);
+
+    // Step 2: Reverse the first n elements (the position from the end)
+    reverse(a, 0, n - 1);
+
+    // Step 3: Reverse the remaining elements
+    reverse(a, n, a.length - 1);
+
+    // Step 4: Copy the array without the nth element from end
+    int[] result = new int[a.length - 1];
+    for (int i = 0, j = 0; i < a.length; i++) {
+        if (i == n - 1) continue; // Skip the nth element from the end
+        result[j++] = a[i];
+    }
+    
+    return result;
+}
+
+// Helper method to reverse a section of the array
+void reverse(int[] a, int start, int end) {
+    while (start < end) {
+        int temp = a[start];
+        a[start] = a[end];
+        a[end] = temp;
+        start++;
+        end--;
+    }
+}
