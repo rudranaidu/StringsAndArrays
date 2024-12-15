@@ -1,4 +1,5 @@
-Description: Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest product and return the product.
+Description: Given an integer array nums, find the contiguous subarray (containing at least one number) 
+which has the largest product and return the product.
 Input: nums = [2, 3, -2, 4]
 Output: 6 (The subarray [2, 3] has the largest product, 6.)
 
