@@ -3,7 +3,8 @@ and then calculate median , if length of merged array is odd then median will be
 ie (mid + mid-1) /2;
 
 To improve space complexity we will follow different approach.
-To find the median , there is no need the entire merged array . We need only the merged array upto mid element. so based on this we can decrease the space complexity.
+To find the median , there is no need the entire merged array . We need only the merged array upto mid element. 
+so based on this we can decrease the space complexity.
 
 import java.util.Arrays;
 public class MedianOfTwoSortedArrays {
