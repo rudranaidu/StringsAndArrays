@@ -24,45 +24,22 @@ public int maxProfit(int[] prices) {
 
 Stock selling variations:
 
-1)   Time to Buy and Sell Stock III**
-   - **Description**: You are allowed to complete at most two transactions.
-   - **Input**: `prices = [3,3,5,0,0,3,1,4]`
-   - **Output**: `maxProfit = 6` (Buy on day 4, sell on day 6, buy on day 7, sell on day 8)
-   - **Hint**: Use dynamic programming or two-pass traversal to keep track of the two best transactions.
+You are given an array prices where prices[i] is the price of a stock on the i-th day. You may buy and sell the stock multiple times (one share at a time).
+You must sell before buying again. Your goal is to maximize total profit. Return the maximum profit you can achieve.
 
-public int getMaxProfit(int[] prices) {
-    if (prices == null || prices.length == 0) {
+private static int getMaxProfitWithMultipleBuys(int[] a) {
+    int n = a.length;
+    if (a == null || n == 0) {
         throw new IllegalArgumentException("Please provide valid input");
     }
 
-    int n = prices.length;
-    if (n < 2) return 0; // No transactions possible if less than 2 prices
+    int cumulativeProfit = 0;
 
-    // First pass: calculate maximum profit up to each day
-    int[] firstPassProfit = new int[n];
-    int minPrice = prices[0];
     for (int i = 1; i < n; i++) {
-        if (minPrice > prices[i]) {
-            minPrice = prices[i];
+        if (a[i] > a[i - 1]) {
+            cumulativeProfit += a[i] - a[i - 1];
         }
-        firstPassProfit[i] = prices[i] - minPrice;
     }
 
-    // Second pass: calculate maximum profit from each day to the end
-    int[] secondPassProfit = new int[n];
-    int maxPrice = prices[n - 1];
-    for (int j = n - 2; j >= 0; j--) {
-        if (maxPrice < prices[j]) {
-            maxPrice = prices[j];
-        }
-        secondPassProfit[j] = maxPrice - prices[j];
-    }
-
-    // Combine profits
-    int maxProfit = 0;
-    for (int i = 0; i < n; i++) {
-        maxProfit = Math.max(maxProfit, firstPassProfit[i] + secondPassProfit[i]);
-    }
-
-    return maxProfit;
+    return cumulativeProfit;
 }
