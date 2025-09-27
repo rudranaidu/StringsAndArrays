@@ -57,6 +57,16 @@ Explanation
 
 Memoization: Stored in Map<String, Integer>
 
+At each day i, you have choices:
+If you can buy → either buy today or skip (cooldown)
+If you can sell → either sell today or skip (cooldown)
+This naturally forms a decision tree.
+
+DFS simply means:
+    Start from day 0
+    Explore one branch of decisions all the way down (to the end of days)
+    Backtrack and explore the other branch
+
 import java.util.*;
 
 public class Solution {
@@ -100,4 +110,3 @@ public class Solution {
         System.out.println(sol.maxProfit(prices)); // Expected output: 3
     }
 }
-
