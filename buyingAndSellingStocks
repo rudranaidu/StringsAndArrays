@@ -43,3 +43,61 @@ private static int getMaxProfitWithMultipleBuys(int[] a) {
 
     return cumulativeProfit;
 }
+
+CoolDown period:
+
+Explanation
+    State: (i, buying)
+    i = current day index
+    buying = true → we can buy, else we can sell
+
+    Transition:
+    If buying → choose between buying today or cooldown
+    If selling → choose between selling today (then cooldown for 1 day) or cooldown
+
+Memoization: Stored in Map<String, Integer>
+
+import java.util.*;
+
+public class Solution {
+    public int maxProfit(int[] prices) {
+        Map<String, Integer> memo = new HashMap<>();
+        return dfs(0, true, prices, memo);
+    }
+
+    private int dfs(int i, boolean buying, int[] prices, Map<String, Integer> memo) {
+        if (i >= prices.length) {
+            return 0;
+        }
+
+        String key = i + "-" + buying;
+        if (memo.containsKey(key)) {
+            return memo.get(key);
+        }
+
+        // Option 1: Cooldown (skip this day)
+        int cooldown = dfs(i + 1, buying, prices, memo);
+
+        int ans;
+        if (buying) {
+            // Option 2: Buy today
+            int buy = dfs(i + 1, false, prices, memo) - prices[i];
+            ans = Math.max(buy, cooldown);
+        } else {
+            // Option 2: Sell today (then cooldown next day)
+            int sell = dfs(i + 2, true, prices, memo) + prices[i];
+            ans = Math.max(sell, cooldown);
+        }
+
+        memo.put(key, ans);
+        return ans;
+    }
+
+    // Test
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[] prices = {1, 2, 3, 0, 2};
+        System.out.println(sol.maxProfit(prices)); // Expected output: 3
+    }
+}
+
