@@ -46,7 +46,27 @@ private static int getMaxProfitWithMultipleBuys(int[] a) {
 
 CoolDown period:
 
-Explanation
+You are given an integer array prices where prices[i] is the price of a stock on the i-th day.
+On each day, you may decide to buy one stock, sell one stock, or do nothing.
+However, you must follow these rules:
+You can only hold at most one stock at a time (i.e., you must sell before you buy again).
+After you sell a stock, you cannot buy on the next day — this day is called the cooldown period.
+Return the maximum profit you can achieve.
+
+input: prices = [1, 2, 3, 0, 2]
+output : 3
+
+Explanation:
+    Buy on day 0 → price = 1
+    Sell on day 2 → profit = 2
+    Cooldown on day 3
+    Buy on day 3 → price = 0
+    Sell on day 4 → profit = 2
+    Total profit = 3 (because cooldown prevents immediate re-buy after selling on day 2).
+
+
+Solution:
+
     State: (i, buying)
     i = current day index
     buying = true → we can buy, else we can sell
