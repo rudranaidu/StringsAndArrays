@@ -1,0 +1,63 @@
+We’re asked to find the Longest Common Subsequence (LCS) between two strings. 
+A subsequence means characters appear in the same order but not necessarily contiguous. 
+For example, for s1 = "abcde" and s2 = "ace", the LCS is "ace", length 3.”
+
+Brute Force Thought Process:
+ Generate all subsequences of the first string (2^n).
+ Generate all subsequences of the second string (2^m).
+ Compare them to find the longest match.
+ This works conceptually, but is exponential time (O(2^n + 2^m)), so not feasible for larger strings.
+
+DP Solution:
+  Let’s say I’m looking at prefixes of the two strings: one ending at index i of the first string and index j of the second string.
+  If the characters s1[i] and s2[j] match, then they must be part of the LCS. So I can just add 1 to the result of the subproblem (i-1, j-1).
+  If they don’t match, then the LCS has to come either by skipping the last character of the first string or skipping the last character of the second string. 
+  So I just take the maximum of those two possibilities.
+
+The problem with pure recursion is that it recomputes a lot of overlapping subproblems. So the standard optimization is to use a dynamic programming table.
+I create a 2D array dp[n+1][m+1], where dp[i][j] means the LCS length for the first i characters of string 1 and the first j characters of string 2.
+Then I fill this table row by row. If characters match, dp[i][j] = 1 + dp[i-1][j-1]; otherwise, dp[i][j] = max(dp[i-1][j], dp[i][j-1]).
+At the end, dp[n][m] gives me the length of the longest common subsequence.
+
+For example, if s1 = "abcde" and s2 = "ace", the table gradually fills up and finally gives me 3, which corresponds to "ace".
+So with DP, I’ve reduced the complexity from exponential O(2^n) to O(n * m), which is efficient enough even for strings of length a few thousand.
+
+### Recursive Relation for LCS
+
+Let `LCS(i, j)` represent the length of the Longest Common Subsequence
+between the first `i` characters of string `s1` and the first `j` characters of string `s2`.
+
+The recurrence is defined as:
+
+
+LCS(i, j) = 0 if i == 0 or j == 0
+           = 1 + LCS(i-1, j-1) if s1[i-1] == s2[j-1]
+            max(LCS(i-1, j), LCS(i, j-1)) otherwise
+
+
+public class LCS {
+    public static int longestCommonSubsequence(String s1, String s2) {
+        int n = s1.length();
+        int m = s2.length();
+        
+        int[][] dp = new int[n + 1][m + 1];
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        return dp[n][m]; // length of LCS
+    }
+
+    public static void main(String[] args) {
+        String s1 = "abcde";
+        String s2 = "ace";
+        System.out.println("Length of LCS: " + longestCommonSubsequence(s1, s2)); // 3 ("ace")
+    }
+}
