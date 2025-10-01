@@ -63,7 +63,8 @@ public class LCS {
 }
 
 Different variations:
-Longest Common Substring → characters must be contiguous in both strings.
+
+2) Longest Common Substring → characters must be contiguous in both strings.
 
 dp[i][j] =
     0                               if i == 0 or j == 0
@@ -93,4 +94,55 @@ return maxLength;
 
 Explain why we reset to 0 if characters don’t match: contiguous requirement.
 Explain why we can’t just take dp[m][n] like LCS-Subsequence → answer can appear anywhere in table.
+
+3) Problem
+Given an integer array arr, find the length of the longest strictly increasing subsequence (elements appear in order, not necessarily contiguous).
+
+Input: arr = [10, 9, 2, 5, 3, 7, 101, 18]
+Output: 4
+Explanation: One of the LIS is [2, 3, 7, 101], so length = 4
+
+
+dp[i] = length of the longest increasing subsequence ending at index i
+
+dp[i] = 1 + max(dp[j]) for all j < i where arr[j] < arr[i]
+dp[i] = 1 if no such j exists
+
+Do not decrease maxLength if the next element is smaller — just skip it.
+Compare all previous dp[j] < arr[i], not only a[i] vs a[j].
+Complexity = O(n²) (two nested loops).
+
+
+public class LIS {
+    // Function to find length of Longest Increasing Subsequence
+    public static int longestIncreasingSubsequence(int[] arr) {
+        int n = arr.length;
+        int[] dp = new int[n]; // dp[i] = LIS ending at i
+        int maxLength = 1;     // At least each element itself
+
+        // Initialize dp array
+        for (int i = 0; i < n; i++) {
+            dp[i] = 1;
+        }
+
+        // Build dp array
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (arr[i] > arr[j]) {       // Only consider increasing elements
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            maxLength = Math.max(maxLength, dp[i]);
+        }
+
+        return maxLength;
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = {10, 9, 2, 5, 3, 7, 101, 18};
+        int[] arr2 = {0, 1, 0, 3, 2, 3};
+        System.out.println("LIS length arr1: " + longestIncreasingSubsequence(arr1)); // 4
+        System.out.println("LIS length arr2: " + longestIncreasingSubsequence(arr2)); // 4
+    }
+}
 
