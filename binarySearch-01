@@ -1,0 +1,64 @@
+1) Problem Statement
+
+Given a sorted array of integers and a target value, find the first and last positions of the target in the array.
+If the target is not found, return [-1, -1].
+
+Intuition — high level
+
+A standard binary search tells you whether a target exists and gives you one index where it occurs. 
+To get the first (leftmost) occurrence or the last (rightmost) occurrence, you bias the binary search when you find the target:
+To find the first occurrence: when you see the target at mid, you still continue searching to the left (because there might be an earlier occurrence).
+To find the last occurrence: when you see the target at mid, you still continue searching to the right (because there might be a later occurrence).
+So the idea is: run two binary searches with different tie-breaking rules.
+
+class Interval {
+    int start;
+    int end;
+    Interval(int s, int e) {
+        start = s;
+        end = e;
+    }
+}
+
+Interval findFirstAndLastOccurence(int[] a, int target) {
+    if(a == null || a.length == 0) 
+        return new Interval(-1, -1);
+
+    int first = findFirst(a, target);
+    int last = findLast(a, target);
+    return new Interval(first, last);
+}
+
+int findFirst(int[] a, int target) {
+    int left = 0, right = a.length - 1;
+    int result = -1;
+    while(left <= right) {
+        int mid = left + (right - left) / 2;
+        if(a[mid] == target) {
+            result = mid;
+            right = mid - 1;  // keep searching left part
+        } else if(a[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return result;
+}
+
+int findLast(int[] a, int target) {
+    int left = 0, right = a.length - 1;
+    int result = -1;
+    while(left <= right) {
+        int mid = left + (right - left) / 2;
+        if(a[mid] == target) {
+            result = mid;
+            left = mid + 1;  // keep searching right part
+        } else if(a[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return result;
+}
