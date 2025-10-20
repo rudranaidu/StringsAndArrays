@@ -1,4 +1,3 @@
-Find the target in rotated sorted array
 
 A rotated sorted array is an array that was initially sorted in ascending (or descending) order and then rotated (shifted) at 
 some pivot point so that elements after the pivot move to the beginning and those before the pivot move to the end
