@@ -1,1 +1,20 @@
+Find the target in rotated sorted array
+
+A rotated sorted array is an array that was initially sorted in ascending (or descending) order and then rotated (shifted) at 
+some pivot point so that elements after the pivot move to the beginning and those before the pivot move to the end
+Efficient way to rotate at pivot k
+
+1. Example Input/Output
+Input (sorted array):
+[10, 20, 30, 40, 50]
+
+Input (rotated at pivot 2 [30]):
+[40, 50, 10, 20, 30]
+
+2. Another Example
+Input (sorted array):
+[1, 2, 3, 4, 5, 6]
+
+Input (rotated at pivot 4 [5]):
+[6, 1, 2, 3, 4, 5]
 
