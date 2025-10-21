@@ -42,7 +42,10 @@ void reverse(int[] arr, int start, int end) {
 Rotated sorted array
 
 Problem Statement:
-Given an array of distinct integers that was initially sorted in ascending order, but then rotated at some unknown pivot, and a target integer, write an algorithm to find the index of the target in the array. If the target is not present, return -1.
+Given an array of distinct integers that was initially sorted in ascending order, but then rotated at some unknown pivot, and a target integer,
+write an algorithm to find the index of the target in the array. If the target is not present, return -1.
+
+
 
 The algorithm must run in O(log n) time.
 
@@ -91,3 +94,11 @@ public class FindTargetInRoatedSortedArray {
 		return -1;
 	}
 }
+
+
+Median of two sorted arrays
+
+Problem Statement:
+Given two sorted arrays, find the median value after merging them into a single sorted array.
+The overall run time complexity should be O(log(min(n, m))) where n and m are the sizes of the arrays.
+
