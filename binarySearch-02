@@ -102,3 +102,60 @@ Problem Statement:
 Given two sorted arrays, find the median value after merging them into a single sorted array.
 The overall run time complexity should be O(log(min(n, m))) where n and m are the sizes of the arrays.
 
+input:
+nums1 = [1, 2]
+nums2 = [3, 4]
+
+Output:
+2.5
+
+Explanation:
+The merged array is [1, 2, 3, 4]. The median is the average of 2 and 3, so (2 + 3)/2 = 2.5.
+
+public class MergeTwoSortedArrays {
+
+	public static void main(String[] args) {
+
+		int[] a = { 1, 2, 3, 4, 5 };
+		int[] b = { 6, 7, 8 };
+		int[] result = mergeTwoSortedArrays(a, b);
+		int reslutLen = result.length;
+		int mid = reslutLen / 2;
+		if (reslutLen % 2 != 0) {
+			System.out.println("Median is: " + result[mid]);
+		} else {
+			int median = result[mid] + result[mid - 1] / 2;
+			System.out.println("Median is :" + median);
+		}
+
+	}
+
+	private static int[] mergeTwoSortedArrays(int[] a, int[] b) {
+
+		int len1 = a.length;
+		int len2 = b.length;
+		int[] result = new int[len1 + len2];
+		int ptr1 = 0;
+		int ptr2 = 0;
+		int ptr3 = 0;
+		while (ptr1 < len1 && ptr2 < len2) {
+			if (a[ptr1] < b[ptr2]) {
+				result[ptr3++] = a[ptr1];
+				ptr1++;
+			} else {
+				result[ptr3++] = b[ptr2];
+				ptr2++;
+			}
+
+		}
+		while (ptr1 < len1) {
+			result[ptr3++] = a[ptr1++];
+		}
+
+		while (ptr1 < len1) {
+			result[ptr3++] = b[ptr2++];
+		}
+		return result;
+	}
+}
+
