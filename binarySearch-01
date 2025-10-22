@@ -62,3 +62,68 @@ int findLast(int[] a, int target) {
     }
     return result;
 }
+
+Search Target element in Matrix:
+
+Row-Based Binary Search Approach
+Since each row is sorted, we can apply binary search independently on each row to find the target.
+If there are m rows and n columns, we perform binary search m times, with each binary search taking O(log n) time.
+Thus, the total time complexity is O(m log n).
+
+Steps
+Iterate through each row of the matrix.
+For each row, apply binary search to check if the target exists in that row.
+If the target is found in any row, return true (or the position (row, col) if needed).
+If the target is not found after checking all rows, return false.
+
+public class MatrixSearch {
+    public static boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return false;
+        }
+
+        int m = matrix.length;    // Number of rows
+        int n = matrix[0].length; // Number of columns
+
+        // Iterate over each row
+        for (int i = 0; i < m; i++) {
+            // Perform binary search on the current row
+            if (binarySearchRow(matrix[i], target)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean binarySearchRow(int[] row, int target) {
+        int left = 0;
+        int right = row.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (row[mid] == target) {
+                return true;
+            } else if (row[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 4, 7, 11},
+            {2, 5, 8, 12},
+            {3, 6, 9, 16}
+        };
+        int target = 8;
+        boolean found = searchMatrix(matrix, target);
+        System.out.println("Target " + target + " found: " + found); // Output: Target 8 found: true
+
+        target = 10;
+        found = searchMatrix(matrix, target);
+        System.out.println("Target " + target + " found: " + found); // Output: Target 10 found: false
+    }
+}
