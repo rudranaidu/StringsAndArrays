@@ -63,7 +63,7 @@ int findLast(int[] a, int target) {
     return result;
 }
 
-Search Target element in Matrix:
+2) Search Target element in Matrix:
 
 Row-Based Binary Search Approach
 Since each row is sorted, we can apply binary search independently on each row to find the target.
@@ -125,5 +125,77 @@ public class MatrixSearch {
         target = 10;
         found = searchMatrix(matrix, target);
         System.out.println("Target " + target + " found: " + found); // Output: Target 10 found: false
+    }
+}
+
+3) Problem Statement
+A local maximum (or local peak) in an array is an element that is greater than or equal to its neighboring elements. For a 1D array:
+
+An element at index i is a local maximum if:
+It is greater than or equal to the element at i-1 (if it exists) and
+It is greater than or equal to the element at i+1 (if it exists).
+Special cases:
+For the first element (index 0), check only the next element.
+For the last element (index n-1), check only the previous element.
+The problem can be to find one local maximum, all local maxima, or determine if a local maximum exists in the array.
+
+Sample Inputs and Outputs
+Example 1: Find One Local Maximum
+Input:
+arr = [1, 3, 3, 2, 5, 4]
+
+Output:
+3 (at index 1 or 2, since 3 >= neighbors)
+
+Explanation:
+
+At index 1, 3 >= 1 (previous) and 3 >= 3 (next).
+At index 2, 3 >= 3 (previous) and 3 >= 2 (next).
+Either can be returned as a local maximum
+
+public class LocalMaxima {
+    public static int findOneLocalMaxima(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            throw new IllegalArgumentException("Array is empty or null");
+        }
+        if (arr.length == 1) {
+            return arr[0];
+        }
+        if (arr[0] >= arr[1]) {
+            return arr[0]; // First element is local max
+        }
+        if (arr[arr.length - 1] >= arr[arr.length - 2]) {
+            return arr[arr.length - 1]; // Last element is local max
+        }
+
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            // Check if mid is a local maximum
+            boolean isGreaterThanLeft = (mid == 0 || arr[mid] >= arr[mid - 1]);
+            boolean isGreaterThanRight = (mid == arr.length - 1 || arr[mid] >= arr[mid + 1]);
+
+            if (isGreaterThanLeft && isGreaterThanRight) {
+                return arr[mid]; // or return mid for index
+            }
+            // Move to the side with larger neighbor
+            else if (mid > 0 && arr[mid - 1] > arr[mid]) {
+                right = mid - 1; // Move left if left neighbor is larger
+            } else {
+                left = mid + 1; // Move right if right neighbor is larger or equal
+            }
+        }
+        return -1; // Should not reach here if a local max is guaranteed
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 3, 2, 5, 4};
+        System.out.println("Local Maximum: " + findOneLocalMaxima(arr)); // Output: 3
+
+        int[] arr2 = {1, 2, 3, 4, 5};
+        System.out.println("Local Maximum: " + findOneLocalMaxima(arr2)); // Output: 5
     }
 }
