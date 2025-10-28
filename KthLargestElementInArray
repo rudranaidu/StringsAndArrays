@@ -1,0 +1,12 @@
+    static Integer kth_largest_in_an_array(ArrayList<Integer> numbers, Integer k) {
+        
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        for(Integer i: numbers) {
+            maxHeap.offer(i);
+        }
+        for(int i=0;i<k-1;i++) {
+            maxHeap.poll();
+        }
+        
+        return maxHeap.peek();
+    }
