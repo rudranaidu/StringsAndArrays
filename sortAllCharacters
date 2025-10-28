@@ -1,0 +1,30 @@
+Given a list of characters, sort it in the non-decreasing order based on ASCII values of characters.
+
+{
+"arr": ["a", "s", "d", "f", "g", "*", "&", "!", "z", "y"]
+}
+
+output:
+["!", "&", "*", "a", "d", "f", "g", "s", "y", "z"]
+
+
+    static ArrayList<Character> sort_array(ArrayList<Character> arr) {
+    int range = 256; // Assuming ASCII characters
+
+    // Create count array
+    int[] count = new int[range];
+    for (char c : arr) {
+        count[c]++;
+    }
+
+    // Recreate final sorted array in reverse order
+    ArrayList<Character> result = new ArrayList<>();
+    for (int i = 0; i< range-1; i++) {
+        while (count[i] > 0) {
+            result.add((char) i);
+            count[i]--;
+        }
+    }
+
+    return result;
+}
