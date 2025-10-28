@@ -1,0 +1,41 @@
+static ArrayList<Integer> find_top_k_frequent_elements(ArrayList<Integer> arr, Integer k) {
+    // Handle edge cases
+    if (arr == null || arr.isEmpty() || k <= 0) {
+        return new ArrayList<>();
+    }
+
+    // Step 1: Build frequency map
+    Map<Integer, Integer> freqMap = new HashMap<>();
+    for (int num : arr) {
+        freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+    }
+
+    // Step 2: Use min-heap to maintain top k frequent elements
+    // Min-heap: smallest frequency at root, so we can evict the least frequent
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>(
+        (a, b) -> {
+            int freqA = freqMap.get(a);
+            int freqB = freqMap.get(b);
+            if (freqA != freqB) {
+                return freqA - freqB; // Lower frequency first (min-heap)
+            }
+            return a - b; // Tie-break: lower number first
+        }
+    );
+
+    // Add elements to heap; if size > k, remove the least frequent
+    for (int num : freqMap.keySet()) {
+        minHeap.offer(num);
+        if (minHeap.size() > k) {
+            minHeap.poll(); // Remove element with smallest frequency among current k+1
+        }
+    }
+
+    // Step 3: Extract result and reverse to get highest frequency first
+    ArrayList<Integer> result = new ArrayList<>();
+    while (!minHeap.isEmpty()) {
+        result.add(minHeap.poll());
+    }
+    Collections.reverse(result); // Reverse to sort by descending frequency
+    return result;
+}
