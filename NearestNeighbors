@@ -1,0 +1,74 @@
+Given coordinates of a point p and n other points on a two-dimensional surface, find k points out of n which are the nearest to point p.
+
+Distance is measured by the standard Euclidean method.
+Example 1
+
+Problem:
+{
+"p_x": 1,
+"p_y": 1,
+"k": 1,
+"n_points": [
+[0, 0],
+[1, 0]
+]
+}
+
+Solution:
+[
+[1, 0]
+]
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
+
+public class KNearest {
+static class Point {
+int x, y;
+Point(int x, int y) { this.x = x; this.y = y; }
+@Override public String toString() { return "(" + x + "," + y + ")"; }
+}
+
+static class NearestPoint {
+long dist2;
+Point p;
+NearestPoint(long dist2, Point p) { this.dist2 = dist2; this.p = p; }
+}
+
+static List<Point> kNearest(Point target, List<Point> points, int k) {
+if (points == null || k <= 0) return List.of();
+if (k >= points.size()) return new ArrayList<>(points);
+
+PriorityQueue<NearestPoint> maxHeap =
+new PriorityQueue<>(k, Comparator.comparingLong((NearestPoint np) -> np.dist2).reversed());
+
+for (Point q : points) {
+long dx = (long) q.x - target.x;
+long dy = (long) q.y - target.y;
+long d2 = dx * dx + dy * dy;
+
+if (maxHeap.size() < k) {
+maxHeap.offer(new NearestPoint(d2, q));
+} else if (d2 < maxHeap.peek().dist2) {
+maxHeap.poll();
+maxHeap.offer(new NearestPoint(d2, q));
+}
+}
+
+List<Point> result = new ArrayList<>(k);
+while (!maxHeap.isEmpty()) {
+result.add(maxHeap.poll().p);
+}
+
+// Optional: sort ascending by distance before returning
+result.sort(Comparator.comparingLong(q -> {
+long dx = (long) q.x - target.x;
+long dy = (long) q.y - target.y;
+return dx * dx + dy * dy;
+}));
+
+return result;
+}
+}
